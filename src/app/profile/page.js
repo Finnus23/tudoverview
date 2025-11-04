@@ -1,5 +1,6 @@
 'use client';
 
+import Exams from '@/components/exams';
 import { useAccessToken } from '@/components/useAccessToken';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -9,6 +10,8 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState(null);
+
+  const [showCourses, setShowCourses] = useState(false);
 
   useEffect(() => {
   setLoading(true);
@@ -25,6 +28,7 @@ export default function Profile() {
       console.log(res.data.user);
       setUser(res.data.user);
       setLoading(false);
+      setShowCourses(true);
     } catch (err) {
       console.error("Error fetching user data:", err);
       setLoading(false);
@@ -36,13 +40,17 @@ export default function Profile() {
 
 
 const handleFetchCourses = async () => {
+  if(courses) {
+    setShowCourses(!showCourses);
+    return;
+  };
   try {
     const res = await axios.get("http://localhost:3001/api/user/courses", {
         headers: { Authorization: `Bearer: ${accessToken}`}
     });
 
-    setCourses(res.data);
-    console.log(res.data);
+    setCourses(res.data.courses);
+    console.log(res.data.courses);
   } catch (err) {
     console.error("Error fetching Courses:", err);
   }
@@ -65,9 +73,13 @@ const handleFetchCourses = async () => {
         {user.sn}
       </div>
       <button onClick={() => handleFetchCourses()}>COurses</button>
-      <div>
-        
-      </div>
+      {
+        showCourses && courses && (
+          <div>
+              <Exams exams={courses} setShowCourses={setShowCourses}/>
+          </div>
+        )
+      }
     </div>
   );
 }
