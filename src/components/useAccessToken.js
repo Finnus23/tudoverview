@@ -18,5 +18,5 @@ export function useAccessToken() {
     window.location.reload();
   };
 
-  return { accessToken, saveToken, removeToken, isLoggedIn: !!accessToken };
+  return { accessToken: accessToken, saveToken, removeToken, isLoggedIn: !!accessToken };
 }
