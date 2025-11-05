@@ -50,13 +50,14 @@ app.get('/api/user/me', async (req, res) => {
 
     return res.json({ user });
   } catch (err) {
-    console.error("Error fetching user data:", err);
-    return res.status(500).json({ error: "Failed to fetch user data. Please try again later." });
+    console.error('Error fetching user data:', err);
+    return res
+      .status(500)
+      .json({ error: 'Failed to fetch user data. Please try again later.' });
   }
 });
 
-
-app.get("/api/user/courses", async (req, res) => {
+app.get('/api/user/courses', async (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -66,35 +67,91 @@ app.get("/api/user/courses", async (req, res) => {
   const accessToken = authHeader.split(' ')[1];
 
   try {
-    const response = await axios.get("https://mobil.itmc.tu-dortmund.de/lsf/v3/courses", {
-      headers: { Authorization: `Bearer ${accessToken}`}
-    })
+    const response = await axios.get(
+      'https://mobil.itmc.tu-dortmund.de/lsf/v3/courses',
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
 
     const courses = response.data;
 
     return res.json({ courses });
   } catch (err) {
-    console.error("Fehler beim fetchen der Courses", err);
-    return res.status(500).json({ error: "Fehler beim laden der Kursdaten. Versuche es später erneut."});
+    console.error('Fehler beim fetchen der Courses', err);
+    return res.status(500).json({
+      error: 'Fehler beim laden der Kursdaten. Versuche es später erneut.',
+    });
   }
-})
+});
 
+app.get('/api/user/qrcode', async (req, res) => {
+  const authHeader = req.headers.authorization;
 
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Missing Authorization header' });
+  }
 
-app.get("/api/canteens", async (req, res) => {
+  const accessToken = authHeader.split(' ')[1];
+
   try {
-    const res = await axios.get(" https://mobil.itmc.tu-dortmund.de/canteen-menu/v3/canteens");
+    const response = await axios.get(
+      'https://mobil.itmc.tu-dortmund.de/campus-id/v1/totp/secret',
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    console.log(response.data);
+
+    const qrcode = response.data;
+
+    return res.json({ qrcode });
+  } catch (err) {
+    console.error('Fehler beim fetchen der Courses', err);
+    return res.status(500).json({
+      error: 'Fehler beim laden der Kursdaten. Versuche es später erneut.',
+    });
+  }
+});
+
+app.get('/api/canteens', async (req, res) => {
+  try {
+    const res = await axios.get(
+      ' https://mobil.itmc.tu-dortmund.de/canteen-menu/v3/canteens'
+    );
 
     const canteens = res.data;
 
     return res.json({
-      canteens
-    })
+      canteens,
+    });
   } catch (err) {
-    console.error("Error fetching Canteens", err);
-    return res.status(500).json({ error: "Error fetching Canteens. Please try again later."})
+    console.error('Error fetching Canteens', err);
+    return res
+      .status(500)
+      .json({ error: 'Error fetching Canteens. Please try again later.' });
   }
-})
+});
+
+app.get('/api/wether', async (req, res) => {
+  try {
+    const response = await axios.get(
+      'https://mobil.itmc.tu-dortmund.de/weather/v1/current'
+    );
+
+    const wether = response.data;
+
+    return res.json({
+      wether,
+    });
+  } catch (err) {
+    console.error('Error fetching Wether', err);
+    return res
+      .status(500)
+      .json({ error: 'Error fetching Wether. Please try again later. ' });
+  }
+});
 
 console.log(`Attempting to listen on port ${PORT}`);
 // Start server

@@ -18,8 +18,6 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  console.log(isLoggedIn);
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-accent/20">
       {/* Desktop Navigation */}
@@ -69,8 +67,10 @@ const Navbar = () => {
 
         <button
           className={`flex ${
-            pathname === '/' ? 'text-accent' : ' text-foreground/70'
-          } flex-col items-center p-2 hover:text-primary transition-all`}
+            pathname === '/'
+              ? 'text-accent bg-[rgba(81,81,81,0.35)] rounded-2xl'
+              : ' text-foreground/70'
+          } flex-col items-center p-2 hover:text-primary transition-all w-14`}
           onClick={() => router.push('/')}
         >
           <HouseIcon size={25} />
@@ -82,8 +82,10 @@ const Navbar = () => {
         <div className="flex justify-around items-center">
           <button
             className={`flex ${
-              pathname === '/mensa' ? 'text-accent' : ' text-foreground/70'
-            } flex-col items-center p-2 hover:text-primary transition-all`}
+              pathname === '/mensa'
+                ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
+                : ' text-foreground/70'
+            } flex-col items-center p-2 hover:text-primary transition-all w-14`}
             onClick={() => router.push('/mensa')}
           >
             <BowlFoodIcon />
@@ -92,12 +94,14 @@ const Navbar = () => {
 
           <button
             className={`flex ${
-              pathname === '/wether' ? 'text-accent' : ' text-foreground/70'
-            } flex-col items-center p-2 hover:text-primary transition-all`}
-            onClick={() => router.push('/wether')}
+              pathname === '/weather'
+                ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
+                : ' text-foreground/70'
+            } flex-col items-center p-2 hover:text-primary transition-all w-14`}
+            onClick={() => router.push('/weather')}
           >
             <CloudLightningIcon />
-            <span className="text-xs">Wether</span>
+            <span className="text-xs">Wetter</span>
           </button>
 
           {isLoggedIn ? (
@@ -105,9 +109,9 @@ const Navbar = () => {
               <button
                 className={`flex ${
                   pathname === '/stundenplan'
-                    ? 'text-accent'
+                    ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
                     : ' text-foreground/70'
-                } flex-col items-center p-2 hover:text-primary transition-all`}
+                } flex-col items-center p-2 hover:text-primary transition-all w-18`}
                 onClick={() => router.push('/stundenplan')}
               >
                 <CalendarBlankIcon />
@@ -117,9 +121,9 @@ const Navbar = () => {
               <button
                 className={`flex ${
                   pathname === '/profile'
-                    ? 'text-accent'
+                    ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
                     : ' text-foreground/70'
-                } flex-col items-center p-2 hover:text-primary transition-all`}
+                } flex-col items-center p-2 hover:text-primary transition-all w-14`}
                 onClick={() => router.push('/profile')}
               >
                 <StudentIcon />
@@ -127,11 +131,13 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            <div>
+            <div className="flex justify-around items-center">
               <button
                 className={`flex ${
-                  pathname === '/login' ? 'text-accent' : ' text-foreground/70'
-                } flex-col items-center p-2 hover:text-primary transition-all`}
+                  pathname === '/login'
+                    ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
+                    : ' text-foreground/70'
+                } flex-col items-center p-2 hover:text-primary transition-all w-14`}
                 onClick={() => router.push('/login')}
               >
                 <SignInIcon />

@@ -26,7 +26,7 @@ export default function Login() {
       });
 
       console.log(res.data);
-      saveToken(res.data.accessToken);
+      saveToken(res.data.accessToken, res.data.expires_in);
       router.push('/profile');
       window.location.reload();
     } catch (err) {
@@ -49,7 +49,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]"></div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -59,19 +59,6 @@ export default function Login() {
       >
         <div className="bg-background/40 backdrop-blur-md rounded-3xl p-8">
           <div className="text-center mb-10">
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
-              className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner"
-            >
-              <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center">
-                <span className="text-xl font-black text-background font-mono tracking-wider">
-                  TUD
-                </span>
-              </div>
-            </motion.div>
-
             <h1 className="text-2xl font-black text-foreground mb-3 tracking-tight">
               Login
             </h1>
