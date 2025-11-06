@@ -35,7 +35,7 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           <button
             className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-accent/10 rounded-lg transition-all"
-            onClick={() => router.push('/mensa')}
+            onClick={() => router.push('/canteens')}
           >
             Mensa
           </button>
@@ -59,11 +59,11 @@ const Navbar = () => {
         <div className="flex justify-around items-center">
           <button
             className={`flex ${
-              pathname === '/mensa'
+              pathname === '/canteens'
                 ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
                 : ' text-foreground/70'
             } flex-col items-center p-2 hover:text-primary transition-all w-14`}
-            onClick={() => router.push('/mensa')}
+            onClick={() => router.push('/canteens')}
           >
             <BowlFoodIcon />
             <span className="text-xs">Mensa</span>
