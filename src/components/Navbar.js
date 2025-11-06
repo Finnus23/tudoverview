@@ -41,7 +41,7 @@ const Navbar = () => {
           </button>
           <button
             className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-accent/10 rounded-lg transition-all"
-            onClick={() => router.push('/stundenplan')}
+            onClick={() => router.push('/timetable')}
           >
             Stundenplan
           </button>
@@ -52,29 +52,6 @@ const Navbar = () => {
             Login
           </button>
         </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className="sm:hidden flex justify-between items-center px-4 py-3">
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => router.push('/')}
-        >
-          <span className="text-xl font-bold text-primary font-mono">TUD</span>
-        </div>
-
-        <div className="flex-1">overview</div>
-
-        <button
-          className={`flex ${
-            pathname === '/'
-              ? 'text-accent bg-[rgba(81,81,81,0.35)] rounded-2xl'
-              : ' text-foreground/70'
-          } flex-col items-center p-2 hover:text-primary transition-all w-14`}
-          onClick={() => router.push('/')}
-        >
-          <HouseIcon size={25} />
-        </button>
       </div>
 
       {/* Mobile Bottom Navigation */}
@@ -108,11 +85,11 @@ const Navbar = () => {
             <>
               <button
                 className={`flex ${
-                  pathname === '/stundenplan'
+                  pathname === '/timetable'
                     ? 'text-accent bg-[rgba(81,81,81,0.15)] rounded-2xl'
                     : ' text-foreground/70'
                 } flex-col items-center p-2 hover:text-primary transition-all w-18`}
-                onClick={() => router.push('/stundenplan')}
+                onClick={() => router.push('/timetable')}
               >
                 <CalendarBlankIcon />
                 <span className="text-xs">Stundenplan</span>

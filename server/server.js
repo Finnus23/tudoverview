@@ -85,6 +85,37 @@ app.get('/api/user/courses', async (req, res) => {
   }
 });
 
+app.get('/api/user/timetable', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const { date } = req.query;
+
+  console.log(date);
+
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Missing Authorization header' });
+  }
+
+  const accessToken = authHeader.split(' ')[1];
+
+  try {
+    const response = await axios.get(
+      `https://mobil.itmc.tu-dortmund.de/lsf/v3/lsfEvents?date=${date}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    const timetable = response.data;
+
+    return res.json({ timetable });
+  } catch (err) {
+    console.error('Fehler beim fetchen des Stundenplans', err);
+    return res.status(500).json({
+      error: 'Fehler beim laden des Stundenplans. Versuche es später erneut.',
+    });
+  }
+});
+
 app.get('/api/user/qrcode', async (req, res) => {
   const authHeader = req.headers.authorization;
 
@@ -101,8 +132,6 @@ app.get('/api/user/qrcode', async (req, res) => {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
-
-    console.log(response.data);
 
     const qrcode = response.data;
 

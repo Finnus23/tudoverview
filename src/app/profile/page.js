@@ -19,7 +19,6 @@ export default function Profile() {
 
   useEffect(() => {
     setLoading(true);
-    console.log(accessToken);
     if (!accessToken) return;
 
     const fetchUserData = async () => {
